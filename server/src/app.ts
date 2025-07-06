@@ -49,6 +49,8 @@ class Server {
       res.status(200).json({ message: "Welcome to the API!" });
     });
     
+
+    
     this.app.use("/api/auth", authRoutes);
     this.app.use("/api/user", userRoutes);
     this.app.use("/api/book", bookRoutes);
