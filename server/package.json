@@ -1,14 +1,14 @@
 {
   "name": "book-management-server",
   "version": "1.0.0",
-  "description": "",
-  "main": "dist/server.js",
+  "description": "Backend server for book management system",
+  "main": "dist/app.js",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
     "build": "tsc",
     "start": "node dist/app.js"
   },
-  "keywords": [],
+  "keywords": ["express", "typescript", "bookstore", "api"],
   "author": "Abhijeet Kumar",
   "license": "MIT",
   "type": "commonjs",
@@ -16,7 +16,6 @@
     "argon2": "^0.43.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
-    "crypto": "^1.0.1",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "helmet": "^8.1.0",
@@ -31,12 +30,13 @@
   "devDependencies": {
     "@types/cookie-parser": "^1.4.9",
     "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.3",
+    "@types/express": "^4.17.21",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/morgan": "^1.9.10",
-    "@types/node": "^24.0.3",
+    "@types/node": "^20.11.17",
     "@types/nodemailer": "^6.4.17",
+    "@types/slugify": "^1.5.3",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.4.5"
   }
 }
