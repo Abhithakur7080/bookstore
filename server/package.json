@@ -37,7 +37,6 @@
     "@types/morgan": "^1.9.10",
     "@types/node": "^20.11.17",
     "@types/nodemailer": "^6.4.17",
-    "@types/slugify": "^1.5.3",
     "ts-node-dev": "^2.0.0"
   }
 }
