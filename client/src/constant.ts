@@ -1,1 +1,1 @@
-export const baseUrl = import.meta.env.VITE_APP_BASE_URL || "http://localhost:5000/api"
+export const baseUrl = "https://bookstore-3ehu.onrender.com/api"
