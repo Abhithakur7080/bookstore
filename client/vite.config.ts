@@ -24,6 +24,11 @@ export default defineConfig(({ command, mode }) => {
       port: parseInt(process.env.PORT || '10000'), // Use Render's PORT env var
       host: '0.0.0.0', // Always bind to 0.0.0.0 for preview/production
       strictPort: true,
+      allowedHosts: [
+        'bookstore-client-6l1s.onrender.com', // Your current domain
+        '.onrender.com', // Allow any onrender.com subdomain
+        'localhost', // Allow localhost for local testing
+      ],
     },
     build: {
       outDir: 'dist',
