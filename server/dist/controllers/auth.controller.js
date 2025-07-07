@@ -53,13 +53,13 @@ class AuthController {
                 res.cookie("refreshToken", refreshToken, {
                     httpOnly: true,
                     secure: process.env.NODE_ENV === "production",
-                    sameSite: "strict",
+                    sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
                     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
                 });
                 res.cookie("accessToken", accessToken, {
                     httpOnly: true,
                     secure: process.env.NODE_ENV === "production",
-                    sameSite: "strict",
+                    sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
                     maxAge: 15 * 60 * 1000, // 15 minutes
                 });
                 return res.status(statusCodes_1.StatusCode.Created).json({ message: "User created" });
@@ -154,13 +154,13 @@ class AuthController {
                 res.cookie("refreshToken", refreshToken, {
                     httpOnly: true,
                     secure: process.env.NODE_ENV === "production",
-                    sameSite: "strict",
+                    sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
                     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
                 });
                 res.cookie("accessToken", accessToken, {
                     httpOnly: true,
                     secure: process.env.NODE_ENV === "production",
-                    sameSite: "strict",
+                    sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
                     maxAge: 15 * 60 * 1000, // 15 minutes
                 });
                 return res.status(statusCodes_1.StatusCode.OK).json({ accessToken, refreshToken, message: "Login successful" });
@@ -236,12 +236,12 @@ class AuthController {
                 res.clearCookie("accessToken", {
                     httpOnly: true,
                     secure: process.env.NODE_ENV === "production",
-                    sameSite: "strict",
+                    sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
                 });
                 res.clearCookie("refreshToken", {
                     httpOnly: true,
                     secure: process.env.NODE_ENV === "production",
-                    sameSite: "strict",
+                    sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
                 });
                 return res.status(statusCodes_1.StatusCode.OK).json({ message: "Logged out successfully" });
             }
@@ -269,13 +269,13 @@ class AuthController {
                 res.cookie("refreshToken", newRefreshToken, {
                     httpOnly: true,
                     secure: process.env.NODE_ENV === "production",
-                    sameSite: "strict",
+                    sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
                     maxAge: 7 * 24 * 60 * 60 * 1000,
                 });
                 res.cookie("accessToken", accessToken, {
                     httpOnly: true,
                     secure: process.env.NODE_ENV === "production",
-                    sameSite: "strict",
+                    sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
                     maxAge: 15 * 60 * 1000,
                 });
                 return res.status(statusCodes_1.StatusCode.OK).json({ accessToken });
