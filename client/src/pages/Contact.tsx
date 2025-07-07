@@ -40,12 +40,14 @@ const ContactPage = () => {
   const onSubmit = async (values: ContactFormData) => {
     try {
       await sendContactMessage(values).unwrap();
-      toast.success("Message sent successfully!");
+      toast("Email received! Our team will contact you within 24 hours.", {
+        icon: "✉️",
+      });
       form.reset();
     } catch (error) {
-      if(error instanceof Error) {
+      if (error instanceof Error) {
         toast.error("Failed to send message.");
-      } 
+      }
     }
   };
 
@@ -53,9 +55,12 @@ const ContactPage = () => {
     <div className="max-w-5xl mx-auto px-4 py-16 space-y-10 mt-[4.5rem]">
       {/* Page Title */}
       <div className="text-center">
-        <h1 className="text-4xl font-bold text-foreground mb-2">Get in Touch</h1>
+        <h1 className="text-4xl font-bold text-foreground mb-2">
+          Get in Touch
+        </h1>
         <p className="text-muted-foreground text-sm">
-          We'd love to hear from you! Whether it's feedback, a question, or a partnership inquiry — drop us a message.
+          We'd love to hear from you! Whether it's feedback, a question, or a
+          partnership inquiry — drop us a message.
         </p>
       </div>
 
@@ -71,7 +76,9 @@ const ContactPage = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Your Name</FormLabel>
-                    <FormControl><Input placeholder="John Doe" {...field} /></FormControl>
+                    <FormControl>
+                      <Input placeholder="John Doe" {...field} />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -83,7 +90,13 @@ const ContactPage = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Your Email</FormLabel>
-                    <FormControl><Input type="email" placeholder="john@example.com" {...field} /></FormControl>
+                    <FormControl>
+                      <Input
+                        type="email"
+                        placeholder="john@example.com"
+                        {...field}
+                      />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -96,7 +109,9 @@ const ContactPage = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Subject</FormLabel>
-                  <FormControl><Input placeholder="Inquiry subject..." {...field} /></FormControl>
+                  <FormControl>
+                    <Input placeholder="Inquiry subject..." {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
@@ -109,7 +124,12 @@ const ContactPage = () => {
                 <FormItem>
                   <FormLabel>Your Message</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Type your message..." rows={6} className="resize-none" {...field} />
+                    <Textarea
+                      placeholder="Type your message..."
+                      rows={6}
+                      className="resize-none"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -143,14 +163,18 @@ const ContactPage = () => {
             <Mail className="text-primary w-5 h-5 mt-1" />
             <div>
               <p className="font-semibold">Email</p>
-              <p className="text-sm text-muted-foreground">support@bookstore.in</p>
+              <p className="text-sm text-muted-foreground">
+                support@bookstore.in
+              </p>
             </div>
           </div>
           <div className="flex items-start gap-4">
             <MapPin className="text-primary w-5 h-5 mt-1" />
             <div>
               <p className="font-semibold">Address</p>
-              <p className="text-sm text-muted-foreground">Book Store HQ, New Delhi, India</p>
+              <p className="text-sm text-muted-foreground">
+                Book Store HQ, New Delhi, India
+              </p>
             </div>
           </div>
         </div>

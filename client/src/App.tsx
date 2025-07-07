@@ -23,15 +23,16 @@ import NotFoundPage from "./pages/404NotFound";
 import NotAuthorizedPage from "./pages/AdminOnlyPage";
 import AdminNewsletterPage from "./pages/admin/Newsletters";
 import PaymentSuccessPage from "./pages/PaymentSuccess";
-import useTabCloseEffect from "./hooks/useHandleTabCloseEffect"
+import useTabCloseEffect from "./hooks/useHandleTabCloseEffect";
+import OrdersPage from "./pages/Orders";
 
 const App = () => {
-  useTabCloseEffect()
+  useTabCloseEffect();
   return (
     <div className="relative overflow-hidden bg-primary-foreground min-h-screen">
-      <ScrollToTop/>
+      <ScrollToTop />
       <Routes>
-        <Route element={<WebLayout  />}>
+        <Route element={<WebLayout />}>
           <Route index={true} element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
@@ -39,7 +40,15 @@ const App = () => {
           <Route path="/shop/:slug" element={<BookDetailsPage />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/cart" element={<CartPage />} />
-          <Route path="/checkout" element={<RequireAuth><CheckoutPage /></RequireAuth>} />
+          <Route path="/orders" element={<OrdersPage />} />
+          <Route
+            path="/checkout"
+            element={
+              <RequireAuth>
+                <CheckoutPage />
+              </RequireAuth>
+            }
+          />
           <Route path="/verify-email" element={<EmailVerifyPage />} />
           <Route path="/payment" element={<PaymentSuccessPage />} />
         </Route>
@@ -54,10 +63,19 @@ const App = () => {
           <Route path="newsletters" element={<AdminNewsletterPage />} />
           <Route index={true} element={<Navigate to={"/admin/dashboard"} />} />
         </Route>
-        <Route path="*" element={<NotFoundPage/>}/>
-        <Route path="/forbidden" element={<NotAuthorizedPage/>}/>
+        <Route path="*" element={<NotFoundPage />} />
+        <Route path="/forbidden" element={<NotAuthorizedPage />} />
       </Routes>
-      <Toaster />
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 3000,
+          style: {
+            background: "#363636",
+            color: "#fff",
+          },
+        }}
+      />
     </div>
   );
 };

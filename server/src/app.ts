@@ -21,7 +21,8 @@ import orderRoutes from "./routes/order.routes";
 
 class Server {
   private app: express.Application;
-  private port: number | string = serverConfig.port;
+  private port: number | string = process.env.PORT || serverConfig.port || 10000;
+  private host: string = process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost';
 
   constructor() {
     this.app = express();
@@ -35,10 +36,16 @@ class Server {
   */
  private initializeMiddlewares() {
    this.app.use(helmet({ contentSecurityPolicy: true }));
-   this.app.use(cors({ origin: true, credentials: true }));
+   
+   // More permissive CORS for development
+   const corsOptions = process.env.NODE_ENV === 'production' 
+     ? { origin: process.env.FRONTEND_URL || true, credentials: true }
+     : { origin: true, credentials: true };
+   
+   this.app.use(cors(corsOptions));
    this.app.use(express.json());
-    this.app.use(morgan("dev"));
-    this.app.use(cookieParser());
+   this.app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
+   this.app.use(cookieParser());
   }
 
   /**
@@ -49,8 +56,11 @@ class Server {
       res.status(200).json({ message: "Welcome to the API!" });
     });
     
+    // Health check endpoint for Render
+    this.app.get("/health", (req, res) => {
+      res.status(200).json({ status: "OK", timestamp: new Date().toISOString() });
+    });
 
-    
     this.app.use("/api/auth", authRoutes);
     this.app.use("/api/user", userRoutes);
     this.app.use("/api/book", bookRoutes);
@@ -72,11 +82,42 @@ class Server {
    * Start server and connect to MongoDB
    */
   public async start() {
-    await connectDB();
-    // await Book.syncIndexes(); // Optional: Uncomment to sync indexes on developement mode(only one time)
-    this.app.listen(this.port, () => {
-      console.log(`🌐 Server is running on port ${this.port}`);
-    });
+    try {
+      await connectDB();
+      // await Book.syncIndexes(); // Optional: Uncomment to sync indexes on developement mode(only one time)
+      
+      const server = this.app.listen(Number(this.port), this.host, () => {
+        console.log(`🌐 Server is running on ${this.host}:${this.port}`);
+        console.log(`🔗 Environment: ${process.env.NODE_ENV || 'development'}`);
+        
+        if (process.env.NODE_ENV !== 'production') {
+          console.log(`📱 Local access: http://localhost:${this.port}`);
+        }
+      });
+
+      // Apply timeout settings only in production or when specified
+      if (process.env.NODE_ENV === 'production' || process.env.APPLY_TIMEOUTS === 'true') {
+        server.keepAliveTimeout = 120000; // 120 seconds
+        server.headersTimeout = 120000;   // 120 seconds
+        console.log('⏱️  Server timeout settings applied');
+      }
+
+      // Graceful shutdown handlers
+      const shutdown = (signal: string) => {
+        console.log(`🛑 ${signal} received, shutting down gracefully`);
+        server.close(() => {
+          console.log('✅ Process terminated');
+          process.exit(0);
+        });
+      };
+
+      process.on('SIGTERM', () => shutdown('SIGTERM'));
+      process.on('SIGINT', () => shutdown('SIGINT'));
+
+    } catch (error) {
+      console.error('❌ Failed to start server:', error);
+      process.exit(1);
+    }
   }
 }
 

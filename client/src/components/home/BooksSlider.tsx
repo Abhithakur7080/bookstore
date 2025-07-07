@@ -126,6 +126,9 @@ const BookCard: React.FC<{
   const handleBuyClick = async () => {
     if (isAuthenticated) {
       await addToCart({ productId: book._id, quantity: 1 }).unwrap();
+      toast(`${book.title} added to cart! Ready to Checkout`, {
+        icon: "🛍️"
+      })
       navigate("/cart");
     } else {
       toast.error("You are not Logged in");

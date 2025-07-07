@@ -10,6 +10,7 @@ import {
   usePlaceCODOrderMutation,
 } from "@/services/order.service";
 import type { CartItem } from "@/types/cart";
+import toast from 'react-hot-toast';
 
 const CheckoutForm = ({
   subtotal,
@@ -20,6 +21,7 @@ const CheckoutForm = ({
 }) => {
   const [createCheckout] = useCreateCheckoutSessionMutation();
   const [placeCODOrder] = usePlaceCODOrderMutation();
+  const {refetch : refetchCart} = useGetCartQuery();
 
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
@@ -49,17 +51,18 @@ const CheckoutForm = ({
           totalAmount: subtotal,
         }).unwrap();
 
-        alert("Order placed with Cash on Delivery!");
-        return;
+        toast("Order placed with Cash on Delivery!", {
+          icon: "📦"
+        });
+      } else if (paymentType === "stripe") {
+          await redirectToStripeCheckout();
       }
+      await refetchCart()
 
-      if (paymentType === "stripe") {
-        await redirectToStripeCheckout();
-        return;
-      }
+
     } catch (error) {
       console.error("Order error:", error);
-      alert("Order failed. Please try again.");
+      toast.error("Order failed. Please try again.");
     } finally {
       setLoading(false);
     }

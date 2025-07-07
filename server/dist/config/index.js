@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.serverConfig = void 0;
 require("dotenv/config");
-console.log(process.env.NODE_ENV);
 const serverConfig = {
     port: process.env.PORT || 5000,
     env: process.env.NODE_ENV || "development",

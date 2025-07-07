@@ -48,7 +48,9 @@ const ProductCard = ({
         window.dispatchEvent(new Event("guestCartUpdated"));
       }
 
-      toast.success(`"${title}" added successfully.`);
+      toast(`"${title}" added successfully.`, {
+        icon: "🛒"
+      });
     } catch (error) {
       if(error instanceof Error) {
         toast.error("Failed to add to cart.");
