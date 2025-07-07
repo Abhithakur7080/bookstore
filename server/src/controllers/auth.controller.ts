@@ -60,15 +60,15 @@ class AuthController {
       // Set cookies
       res.cookie("refreshToken", refreshToken, {
         httpOnly: true,
-        // secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "strict" as const,
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       });
 
       res.cookie("accessToken", accessToken, {
         httpOnly: true,
-        // secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "strict" as const,
         maxAge: 15 * 60 * 1000, // 15 minutes
       });
 
@@ -176,15 +176,15 @@ class AuthController {
       // Set cookies
       res.cookie("refreshToken", refreshToken, {
         httpOnly: true,
-        // secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "strict" as const,
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
       });
 
       res.cookie("accessToken", accessToken, {
         httpOnly: true,
-        // secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "strict" as const,
         maxAge: 15 * 60 * 1000, // 15 minutes
       });
 
@@ -265,14 +265,14 @@ class AuthController {
     try {
       res.clearCookie("accessToken", {
         httpOnly: true,
-        // secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "strict" as const,
       });
 
       res.clearCookie("refreshToken", {
         httpOnly: true,
-        // secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "strict" as const,
       });
 
       return res.status(StatusCode.OK).json({ message: "Logged out successfully" });
@@ -306,15 +306,15 @@ class AuthController {
       // Rotate tokens
       res.cookie("refreshToken", newRefreshToken, {
         httpOnly: true,
-        // secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "strict" as const,
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
 
       res.cookie("accessToken", accessToken, {
         httpOnly: true,
-        // secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
+        secure: process.env.NODE_ENV === "production",
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "strict" as const,
         maxAge: 15 * 60 * 1000,
       });
 
