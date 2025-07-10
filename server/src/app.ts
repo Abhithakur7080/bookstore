@@ -38,7 +38,21 @@ class Server {
   }
 
   private initializeMiddlewares() {
-    this.app.use(helmet({ contentSecurityPolicy: true }));
+    // this.app.use(helmet({ contentSecurityPolicy: true }));
+    this.app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        imgSrc: ["'self'", "data:", "*"],
+        // You can extend other directives like:
+        // scriptSrc: ["'self'", "https://cdn.jsdelivr.net"],
+        // styleSrc: ["'self'", "'unsafe-inline'"],
+      },
+    },
+  })
+);
+
     this.app.use(cors({ origin: true, credentials: true }));
     this.app.use(express.json());
     this.app.use(morgan("combined"));
