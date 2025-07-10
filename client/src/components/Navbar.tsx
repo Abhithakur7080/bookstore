@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import Logo from "@/assets/book-store-logo-2.png";
+import { logo } from "@/assets";
 import { Separator } from "./ui/separator";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { useAuth } from "@/hooks/useAuth";
@@ -64,7 +64,7 @@ const Navbar = () => {
         {/* Left: Logo */}
         <div>
           <img
-            src={Logo}
+            src={logo}
             alt="BookStore Logo"
             onClick={() => (window.location.href = "/")}
             className="h-12 w-auto object-contain"

@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { useMeQuery } from "@/services/user.service";
 import { useAuth } from "@/hooks/useAuth";
 import { useEffect } from "react";
+import { loginBG } from "@/assets";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
@@ -66,7 +67,7 @@ const LoginPage = () => {
       {/* Motivational Image/Quote */}
       <div className="hidden md:flex flex-col items-center justify-center px-6 py-10">
         <img
-          src="https://images.unsplash.com/photo-1709924168698-620ea32c3488?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          src={loginBG}
           alt="Motivational Reading"
           className="max-w-4xl mb-6"
         />

@@ -6,7 +6,8 @@ export function useAuth() {
 
   const isAuthenticated = !isLoading && !isError && !!data;
 
-  const isAdmin = !isLoading && !isError && data?.user && data?.user?.role === "admin"
+const isAdmin = !isLoading && !isError && data?.user && (data.user as { role?: string })?.role === "admin";
+
 
   return { isAuthenticated, data,  isLoading, isAdmin };
 }

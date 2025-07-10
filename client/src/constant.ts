@@ -1,1 +1,1 @@
-export const baseUrl = "https://bookstore-3ehu.onrender.com/api"
+export const baseUrl = import.meta.env.NODE_ENV==="production" ? "/api ":"http://localhost:5000/api"

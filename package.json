@@ -1,0 +1,22 @@
+{
+  "name": "book-store",
+  "version": "1.0.0",
+  "description": "<h1 align=\"center\" style=\"font-size: 36px;\">\r   <img src=\"./client/src/assets/thumbnail.png\" width=\"35\"/> BOOK STORE\r </h1>",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm install --prefix server && npm install --prefix client && npm run build --prefix client && npm run build --prefix server",
+    "start": "npm run start --prefix server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abhithakur7080/bookstore.git"
+  },
+  "keywords": [],
+  "author": "Abhijeet Kumar",
+  "license": "MIT",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Abhithakur7080/bookstore/issues"
+  },
+  "homepage": "https://github.com/Abhithakur7080/bookstore#readme"
+}

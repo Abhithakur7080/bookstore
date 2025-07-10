@@ -12,7 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { useLocation, Link, Outlet, useNavigate } from "react-router-dom";
-import Logo from "@/assets/book-store-logo-2.png";
+import { logo } from "@/assets";
 import { useLogoutMutation } from "@/services/auth.service";
 import { useMeQuery } from "@/services/user.service";
 import { useEffect } from "react";
@@ -138,7 +138,7 @@ const AdminLayout = () => {
           {/* Search + Admin Info */}
           <div className="flex items-center justify-between gap-4 w-full">
             <img
-              src={Logo}
+              src={logo}
               alt="BookStore Logo"
               onClick={() => (window.location.href = "/")}
               className="h-12 w-auto object-contain"

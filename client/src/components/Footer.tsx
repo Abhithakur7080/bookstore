@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -27,8 +26,10 @@ const Footer = () => {
   const { data, isLoading: loadingUser, refetch } = useMeQuery();
   const [toggleNewsletter, { isLoading }] = useToggleNewsletterMutation();
 
-  const email = data?.user?.email || "";
-  const subscribed = data?.user?.preferences?.newsletterSubscribed || false;
+const email = (data?.user as { email?: string })?.email || "";
+
+const subscribed = (data?.user as { preferences?: { newsletterSubscribed?: boolean } })?.preferences?.newsletterSubscribed || false;
+
 
   const handleSubscribe = async () => {
     try {

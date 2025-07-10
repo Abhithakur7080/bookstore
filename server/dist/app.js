@@ -30,41 +30,31 @@ const author_routes_1 = __importDefault(require("./routes/author.routes"));
 const cart_routes_1 = __importDefault(require("./routes/cart.routes"));
 const contact_routes_1 = __importDefault(require("./routes/contact.routes"));
 const order_routes_1 = __importDefault(require("./routes/order.routes"));
+const path_1 = __importDefault(require("path"));
 // import Book from "./models/book.model"; // For syncing indexes if needed
 class Server {
     constructor() {
-        this.port = process.env.PORT || config_1.serverConfig.port || 10000;
-        this.host = process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost';
+        this.port = config_1.serverConfig.port;
         this.app = (0, express_1.default)();
         this.initializeMiddlewares();
         this.initializeRoutes();
+        // Serve frontend only in production
+        if (config_1.serverConfig.env === "production") {
+            this.initializeFrontend();
+        }
         this.initializeErrorHandler();
     }
-    /**
-     * Setup essential middlewares for security, parsing, logging, and CORS
-    */
     initializeMiddlewares() {
         this.app.use((0, helmet_1.default)({ contentSecurityPolicy: true }));
-        // More permissive CORS for development
-        const corsOptions = process.env.NODE_ENV === 'production'
-            ? { origin: process.env.FRONTEND_URL || true, credentials: true }
-            : { origin: true, credentials: true };
-        this.app.use((0, cors_1.default)(corsOptions));
+        this.app.use((0, cors_1.default)({ origin: true, credentials: true }));
         this.app.use(express_1.default.json());
-        this.app.use((0, morgan_1.default)(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
+        this.app.use((0, morgan_1.default)("dev"));
         this.app.use((0, cookie_parser_1.default)());
     }
-    /**
-     * Setup API routes and default root endpoint
-     */
     initializeRoutes() {
-        this.app.get("/", (req, res) => {
-            res.status(200).json({ message: "Welcome to the API!" });
-        });
-        // Health check endpoint for Render
-        this.app.get("/health", (req, res) => {
-            res.status(200).json({ status: "OK", timestamp: new Date().toISOString() });
-        });
+        // this.app.get("/", (req, res) => {
+        //   res.status(200).json({ message: "Welcome to the API!" });
+        // });
         this.app.use("/api/auth", auth_routes_1.default);
         this.app.use("/api/user", user_routes_1.default);
         this.app.use("/api/book", book_routes_1.default);
@@ -75,47 +65,29 @@ class Server {
         this.app.use("/api/order", order_routes_1.default);
     }
     /**
-     * Global error handler
+     * Serve frontend static files in production
      */
+    initializeFrontend() {
+        const clientDistPath = path_1.default.join(__dirname, "../../client/dist");
+        this.app.use(express_1.default.static(clientDistPath));
+        this.app.use((req, res, next) => {
+            if (!req.path.startsWith('/api')) {
+                res.sendFile(path_1.default.join(clientDistPath, "index.html"));
+            }
+            else {
+                next();
+            }
+        });
+    }
     initializeErrorHandler() {
         this.app.use(errorHandler_1.errorHandler);
     }
-    /**
-     * Start server and connect to MongoDB
-     */
     start() {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield (0, mongo_1.default)();
-                // await Book.syncIndexes(); // Optional: Uncomment to sync indexes on developement mode(only one time)
-                const server = this.app.listen(Number(this.port), this.host, () => {
-                    console.log(`🌐 Server is running on ${this.host}:${this.port}`);
-                    console.log(`🔗 Environment: ${process.env.NODE_ENV || 'development'}`);
-                    if (process.env.NODE_ENV !== 'production') {
-                        console.log(`📱 Local access: http://localhost:${this.port}`);
-                    }
-                });
-                // Apply timeout settings only in production or when specified
-                if (process.env.NODE_ENV === 'production' || process.env.APPLY_TIMEOUTS === 'true') {
-                    server.keepAliveTimeout = 120000; // 120 seconds
-                    server.headersTimeout = 120000; // 120 seconds
-                    console.log('⏱️  Server timeout settings applied');
-                }
-                // Graceful shutdown handlers
-                const shutdown = (signal) => {
-                    console.log(`🛑 ${signal} received, shutting down gracefully`);
-                    server.close(() => {
-                        console.log('✅ Process terminated');
-                        process.exit(0);
-                    });
-                };
-                process.on('SIGTERM', () => shutdown('SIGTERM'));
-                process.on('SIGINT', () => shutdown('SIGINT'));
-            }
-            catch (error) {
-                console.error('❌ Failed to start server:', error);
-                process.exit(1);
-            }
+            yield (0, mongo_1.default)();
+            this.app.listen(this.port, () => {
+                console.log(`🌐 Server is running on port ${this.port}`);
+            });
         });
     }
 }

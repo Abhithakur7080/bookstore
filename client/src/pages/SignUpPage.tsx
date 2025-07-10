@@ -17,6 +17,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useEffect } from "react";
 import { useMeQuery } from "@/services/user.service";
+import { registerBG } from "@/assets";
 
 const signupSchema = z.object({
   fullName: z.string().min(2, { message: "Full Name is required" }),
@@ -80,7 +81,7 @@ const SignupPage = () => {
       {/* Motivational Image/Quote */}
       <div className="hidden md:flex flex-col items-center justify-center px-6 py-10">
         <img
-          src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0"
+          src={registerBG}
           alt="Signup Motivation"
           className="max-w-4xl mb-6"
         />
