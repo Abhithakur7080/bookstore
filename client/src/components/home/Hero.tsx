@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Star, BookOpen, Users, Award, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
+import { heroBanner } from "@/assets";
 
 const Hero = () => {
   return (
@@ -128,7 +129,7 @@ const Hero = () => {
             <div className="relative group">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity duration-500" />
               <img
-                src="https://images.unsplash.com/photo-1512820790803-83ca734da794"
+                src={heroBanner}
                 alt="Books Hero"
                 className="relative w-full max-w-lg rounded-2xl shadow-2xl object-cover transition-all duration-500 group-hover:scale-105 group-hover:shadow-3xl"
               />

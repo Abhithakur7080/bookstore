@@ -41,7 +41,7 @@ class Server {
     this.app.use(helmet({ contentSecurityPolicy: true }));
     this.app.use(cors({ origin: true, credentials: true }));
     this.app.use(express.json());
-    this.app.use(morgan("dev"));
+    this.app.use(morgan("combined"));
     this.app.use(cookieParser());
   }
 
