@@ -4,7 +4,7 @@
   "description": "<h1 align=\"center\" style=\"font-size: 36px;\">\r   <img src=\"./client/src/assets/thumbnail.png\" width=\"35\"/> BOOK STORE\r </h1>",
   "main": "index.js",
   "scripts": {
-    "build": "npm install --prefix server && npm install --prefix client && npm run build --prefix client && npm run build --prefix server",
+    "build": "npm install --prefix server && npm install --include=dev --prefix client && npm run build --prefix client && npm run build --prefix server",
     "start": "npm run start --prefix server"
   },
   "repository": {
