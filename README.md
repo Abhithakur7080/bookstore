@@ -1,3 +1,5 @@
+![Tests](https://github.com/Abhithakur7080/bookstore/actions/workflows/test.yml/badge.svg)
+
 <h1 align="center" style="font-size: 36px;">
   <img src="./client/src/assets/thumbnail.png" width="35"/> BOOK STORE
 </h1>
