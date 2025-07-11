@@ -7,7 +7,7 @@
 This is a full-stack Book Store web application built using the MERN stack. It supports secure user authentication, Stripe payments, and an intuitive UI for users to browse, purchase, and manage books online.
 
 ## 🔗 Hosted Link
-[Explore Live](https://bookstore-client-6l1s.onrender.com/)
+[Explore Live](https://bookstore-1-f5z3.onrender.com)
 
 ## 🚀 Features
 
