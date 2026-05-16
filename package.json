@@ -6,12 +6,12 @@
   "packageManager": "pnpm@11.1.2",
   "scripts": {
     "install:client": "pnpm install --filter client",
-    "install:server": "pnpm install --filter server",
+    "install:server": "pnpm install --filter book-management-server",
     "install:all": "pnpm install",
     "build:client": "pnpm --filter client build",
-    "build:server": "pnpm --filter server build",
+    "build:server": "pnpm --filter book-management-server build",
     "build": "pnpm install && pnpm run build:client && pnpm run build:server",
-    "start": "pnpm --filter server start"
+    "start": "pnpm --filter book-management-server start"
   },
   "repository": {
     "type": "git",

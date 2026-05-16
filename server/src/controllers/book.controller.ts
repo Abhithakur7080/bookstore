@@ -210,7 +210,7 @@ class BookController {
   public toggleFeatured = async (req: Request, res: Response) => {
     try {
       const { idOrSlug } = req.params;
-      const condition = idOrSlug.match(/^[0-9a-fA-F]{24}$/)
+      const condition = String(idOrSlug).match(/^[0-9a-fA-F]{24}$/)
         ? { _id: idOrSlug }
         : { slug: idOrSlug };
 
