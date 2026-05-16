@@ -10,7 +10,7 @@
     "install:all": "pnpm install",
     "build:client": "pnpm --filter client build",
     "build:server": "pnpm --filter book-management-server build",
-    "build": "pnpm install --prod=false --config.ignore-scripts=false && pnpm run build:client && pnpm run build:server",
+    "build": "pnpm install --prod=false && pnpm run build:client && pnpm run build:server",
     "start": "pnpm --filter book-management-server start"
   },
   "repository": {
@@ -24,11 +24,5 @@
   "bugs": {
     "url": "https://github.com/Abhithakur7080/bookstore/issues"
   },
-  "homepage": "https://github.com/Abhithakur7080/bookstore#readme",
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "argon2",
-      "esbuild"
-    ]
-  }
+  "homepage": "https://github.com/Abhithakur7080/bookstore#readme"
 }
