@@ -34,10 +34,13 @@ export default defineConfig(({ _, mode }) => {
       outDir: 'dist',
       sourcemap: !isProduction, // Sourcemaps only in dev
       minify: isProduction,
+      chunkSizeWarningLimit: 1000,
       rollupOptions: {
         output: {
           manualChunks: {
-            vendor: ['react', 'react-dom'],
+            'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+            'ui-vendor': ['lucide-react'],
+            'redux-vendor': ['@reduxjs/toolkit', 'react-redux'],
           },
         },
       },
