@@ -19,14 +19,24 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install Client Dependencies
-        run: npm install --include=dev --prefix client
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 11
+          run_install: false
+
+      - name: Install Dependencies
+        run: pnpm install
 
       - name: Build Client
-        run: npm run build --prefix client
-
-      - name: Install Server Dependencies
-        run: npm install --include=dev --prefix server
+        run: pnpm run build:client
 
       - name: Build Server
-        run: npm run build --prefix server
+        run: pnpm run build:server
+
+      - name: Trigger Render Deployment
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: |
+          # This step triggers the deployment on Render only if the build succeeds.
+          # You need to add RENDER_DEPLOY_HOOK to your GitHub Repository Secrets.
+          curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
