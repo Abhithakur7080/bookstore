@@ -1,1 +1,9 @@
-npx --no -- commitlint --edit ${1}
+npx --no -- commitlint --edit ${1} || {
+  echo ""
+  echo "❌ Invalid commit message format."
+  echo "👉 Example: feat: add login feature"
+  echo "👉 Valid types: build, chore, ci, docs, feat, fix, perf, refactor, revert, style, test"
+  echo "💡 Tip: Run 'pnpm run commit' instead of 'git commit' for an interactive prompt!"
+  echo ""
+  exit 1
+}
