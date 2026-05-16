@@ -10,7 +10,7 @@
     "install:all": "pnpm install",
     "build:client": "pnpm --filter client build",
     "build:server": "pnpm --filter book-management-server build",
-    "build": "pnpm install && pnpm run build:client && pnpm run build:server",
+    "build": "pnpm install --prod=false && pnpm run build:client && pnpm run build:server",
     "start": "pnpm --filter book-management-server start"
   },
   "repository": {
