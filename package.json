@@ -11,9 +11,7 @@
     "build:client": "pnpm --filter client build",
     "build:server": "pnpm --filter server build",
     "build": "pnpm install && pnpm run build:client && pnpm run build:server",
-    "start": "pnpm --filter server start",
-    "prepare": "husky",
-    "commit": "git add . && git-cz"
+    "start": "pnpm --filter server start"
   },
   "repository": {
     "type": "git",
@@ -27,12 +25,6 @@
     "url": "https://github.com/Abhithakur7080/bookstore/issues"
   },
   "homepage": "https://github.com/Abhithakur7080/bookstore#readme",
-  "devDependencies": {
-    "@commitlint/cli": "^21.0.1",
-    "@commitlint/config-conventional": "^21.0.1",
-    "git-cz": "^4.9.0",
-    "husky": "^9.1.7"
-  },
   "pnpm": {
     "onlyBuiltDependencies": [
       "argon2",
